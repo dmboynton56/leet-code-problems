@@ -20,6 +20,18 @@ Input: temperatures = [30,60,90]
 Output: [1,1,0]
 """
 
+import math
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        pass
+    res = [0] * len(temperatures)
+    stack = []  # will store indices: [index]
+    
+    for i, t in enumerate(temperatures):
+        # While current temp is warmer than the temp at the top of our stack
+        while stack and t > temperatures[stack[-1]]:
+            prev_index = stack.pop()
+            res[prev_index] = i - prev_index
+        stack.append(i)
+        
+    return res

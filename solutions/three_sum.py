@@ -30,4 +30,22 @@ Explanation: The only possible triplet sums up to 0.
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        pass
+        nums.sort()
+        three_sums = []
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                total = nums[i] + nums[l] + nums[r]
+                if total == 0:
+                    three_sums.append([nums[i], nums[l], nums[r]])
+                    l += 1
+                    r -= 1
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1
+                elif total < 0:
+                    l += 1
+                else:
+                    r -= 1
+        return three_sums
