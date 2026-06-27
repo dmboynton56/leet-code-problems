@@ -1,17 +1,17 @@
+# solution returns all unique triplets that sum to zero.
+# Go: sort.Slice with less func; Python: nums.sort() or sorted().
 def solution(nums: list[int]) -> list[list[int]]:
-    """
-    Sort + two pointers. Python sorted() returns new list; Go sort.Slice sorts in place.
-    """
-    nums.sort()
+    nums.sort()  # Go sort.Slice sorts in place; Python sorted() returns new list, sort() is in-place.
     result: list[list[int]] = []
+    n = len(nums)
 
-    for i in range(len(nums) - 2):
+    for i in range(n - 2):
         if i > 0 and nums[i] == nums[i - 1]:
-            continue
+            continue  # skip duplicate anchors; Python same guard
 
-        left, right = i + 1, len(nums) - 1
+        left, right = i + 1, n - 1
         while left < right:
-            total = nums[i] + nums[left] + nums[right]
+            total = nums[i] + nums[left] + nums[right]  # Go names this `sum`
             if total == 0:
                 result.append([nums[i], nums[left], nums[right]])
                 left += 1
@@ -30,3 +30,4 @@ def solution(nums: list[int]) -> list[list[int]]:
 
 if __name__ == "__main__":
     print(solution([-1, 0, 1, 2, -1, -4]))
+    # [[-1, -1, 2], [-1, 0, 1]]

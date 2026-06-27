@@ -1,10 +1,11 @@
+# solution returns the largest sum of any contiguous subarray (Kadane's algorithm).
+# Go: track running sum and global max; Python's max() is built-in.
 def solution(nums: list[int]) -> int:
-    """
-    Kadane's algorithm. Python one-liner variant: current = max(x, current + x).
-    """
-    max_sum = current = nums[0]
+    max_sum = current = nums[0]  # assume non-empty per problem
 
     for num in nums[1:]:
+        # extend current subarray or start fresh at nums[i]
+        # Python one-liner via max(); Go uses explicit if currentSum+nums[i] > nums[i]
         current = max(num, current + num)
         max_sum = max(max_sum, current)
 
